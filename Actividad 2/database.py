@@ -4,7 +4,7 @@ class Database:
     def __init__(self):
         self.client = MongoClient("mongodb://localhost:27017/")
         self.db = self.client["M3"]
-
+    # Create collections for units, areas, and messages
     def createCollections(self):
         self.db["units"].insert_many([
             {

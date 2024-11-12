@@ -9,6 +9,7 @@ class RescueOperations:
         self.lock = threading.Lock()
 
     def explore_area(self, unit_name, area_id):
+        # Update area status to "Explored" and set "found" to True
         with self.lock:
             area = self.db.get_area(area_id)
             if area and area["status"] == "Not Explored":
@@ -23,6 +24,7 @@ class RescueOperations:
                 print(f"[Info] Area {area_id} already explored by another unit.")
 
     def assign_and_explore(self, unit_name):
+        # Assign unit to an unexplored area
         unexplored_areas = self.db.get_unexplored_areas()
         if unexplored_areas:
             area = random.choice(unexplored_areas)
@@ -34,7 +36,7 @@ class RescueOperations:
             self.explore_area(unit_name, area_id)
         else:
             print(f"{unit_name}: No unexplored areas left.")
-
+    # Read messages from the database
     def read_messages(self):
         messages = self.db.get_messages()
         for message in messages:
